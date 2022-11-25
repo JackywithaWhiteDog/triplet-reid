@@ -8,7 +8,7 @@ import h5py
 import json
 import numpy as np
 from sklearn.metrics import average_precision_score
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 import common
 import loss
@@ -198,4 +198,5 @@ def main():
         mean_ap, cmc[0], cmc[1], cmc[4], cmc[9]))
 
 if __name__ == '__main__':
+    tf.disable_v2_behavior()
     main()

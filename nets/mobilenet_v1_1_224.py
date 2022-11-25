@@ -1,7 +1,7 @@
 import tensorflow as tf
 
 from nets.mobilenet_v1 import mobilenet_v1
-from tensorflow.contrib import slim
+import tf_slim as slim
 
 
 def endpoints(image, is_training):

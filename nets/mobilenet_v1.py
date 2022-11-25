@@ -110,7 +110,7 @@ import functools
 
 import tensorflow as tf
 
-slim = tf.contrib.slim
+import tf_slim as slim
 
 # Conv and DepthSepConv namedtuple define layers of the MobileNet architecture
 # Conv defines 3x3 convolution layers
@@ -196,7 +196,7 @@ def mobilenet_v1_base(inputs,
   if output_stride is not None and output_stride not in [8, 16, 32]:
     raise ValueError('Only allowed output_stride values are 8, 16, 32.')
 
-  with tf.variable_scope(scope, 'MobilenetV1', [inputs]):
+  with tf.compat.v1.variable_scope(scope, 'MobilenetV1', [inputs]):
     with slim.arg_scope([slim.conv2d, slim.separable_conv2d], padding='SAME'):
       # The current_stride variable keeps track of the output stride of the
       # activations, i.e., the running product of convolution strides up to the

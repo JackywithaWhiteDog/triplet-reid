@@ -1,2 +1,13 @@
 __pycache__
 *.pyc
+
+bounding_box_test
+bounding_box_train
+experiments
+data
+query
+splitted_data
+*.zip
+*.ckpt
+*.tar.gz
+.python-version

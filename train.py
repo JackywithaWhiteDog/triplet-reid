@@ -10,8 +10,8 @@ import time
 
 import json
 import numpy as np
-import tensorflow as tf
-from tensorflow.contrib import slim
+import tensorflow.compat.v1 as tf
+import tf_slim as slim
 
 import common
 import lbtoolbox as lb
@@ -119,7 +119,7 @@ parser.add_argument(
          'Set to -1 to disable decay completely.')
 
 parser.add_argument(
-    '--checkpoint_frequency', default=1000, type=common.nonnegative_int,
+    '--checkpoint_frequency', default=5000, type=common.nonnegative_int,
     help='After how many iterations a checkpoint is stored. Set this to 0 to '
          'disable intermediate storing. This will result in only one final '
          'checkpoint.')
@@ -247,7 +247,7 @@ def main():
         pid, all_fids=fids, all_pids=pids, batch_k=args.batch_k))
 
     # Ungroup/flatten the batches for easy loading of the files.
-    dataset = dataset.apply(tf.contrib.data.unbatch())
+    dataset = dataset.unbatch()
 
     # Convert filenames to actual image tensors.
     net_input_size = (args.net_input_height, args.net_input_width)
@@ -433,4 +433,5 @@ def main():
 
 
 if __name__ == '__main__':
+    tf.disable_v2_behavior()
     main()

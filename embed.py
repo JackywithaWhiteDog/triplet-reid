@@ -7,7 +7,7 @@ import os
 import h5py
 import json
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from aggregators import AGGREGATORS
 import common
@@ -165,7 +165,7 @@ def main():
     modifiers = ['original']
     if args.flip_augment:
         dataset = dataset.map(flip_augment)
-        dataset = dataset.apply(tf.contrib.data.unbatch())
+        dataset = dataset.unbatch()
         modifiers = [o + m for m in ['', '_flip'] for o in modifiers]
 
     if args.crop_augment == 'center':
@@ -177,7 +177,7 @@ def main():
             tf.stack(five_crops(im, net_input_size)),
             tf.stack([fid]*5),
             tf.stack([pid]*5)))
-        dataset = dataset.apply(tf.contrib.data.unbatch())
+        dataset = dataset.unbatch()
         modifiers = [o + m for o in modifiers for m in [
             '_center', '_top_left', '_top_right', '_bottom_left', '_bottom_right']]
     elif args.crop_augment == 'avgpool':
@@ -248,4 +248,5 @@ def main():
 
 
 if __name__ == '__main__':
+    tf.disable_v2_behavior()
     main()

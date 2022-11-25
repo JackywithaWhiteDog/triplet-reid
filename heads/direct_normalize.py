@@ -1,5 +1,5 @@
 import tensorflow as tf
-from tensorflow.contrib import slim
+import tf_slim as slim
 
 def head(endpoints, embedding_dim, is_training):
     endpoints['emb_raw'] = slim.fully_connected(
